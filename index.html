@@ -3,158 +3,309 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Portfolio — Landing</title>
+    <title>Daiana Horvath — Portfolio</title>
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Optional: nicer font (safe to remove if you want pure local) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   </head>
 
-  <body>
-    <!-- HEADER / NAV -->
+  <body class="spa">
+    <!-- A11y quick win -->
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <!-- HEADER / NAV (rămâne la fel, nu schimbăm look-ul) -->
     <header class="header">
       <div class="container nav">
-        <a class="logo" href="#top">LOGO</a>
+        <a class="logo" href="#about">LOGO</a>
 
-        <nav class="nav-links" aria-label="Primary">
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-controls="primary-nav"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+        <nav id="primary-nav" class="nav-links" aria-label="Primary">
+          <!-- Home poate să ducă la About (dreapta), fiindcă hero-ul e permanent în stânga -->
           <a href="#home" class="active">Home</a>
           <a href="#about">About</a>
-          <a href="#work">Work</a>
+          <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
         </nav>
 
-        <a class="btn btn-ghost" href="#resume">Resume <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-ghost" href="./resume.html">Resume <span aria-hidden="true">↗</span></a>
       </div>
     </header>
 
-    <main id="top">
-      <!-- HERO -->
-      <section id="home" class="hero">
-        <div class="container hero-grid">
-          <div class="hero-left">
-            <p class="kicker">I’m</p>
-            <h1 class="hero-title">
-              <span class="name">Daiana-Alexandra</span>
-              <span class="surname">Horvath</span>
-            </h1>
-
-            <p class="hero-subtitle">
-                Telecommunications graduate from the Technical University of Cluj-Napoca, now diving into Cybersecurity at Transilvania University of Brașov. I’m passionate about app development and front-end, 
-                crafting user-focused interfaces where design meets functionality—clean, modern, and a little bit magical.
-
-            </p>
-
-            <div class="hero-cta">
-              <a class="btn btn-primary" href="#contact">Hire Me</a>
-              <a class="btn btn-soft" href="#work">My Story <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-
-          <div class="hero-right">
-            <!-- Memoji-ish bubble (no images needed) -->
-            <div class="memoji-card" aria-hidden="true">
-              <div class="cloud c1"></div>
-              <div class="cloud c2"></div>
-              <img class="memoji-img" src="./memoji_transparent.png" alt="My Memoji" />
-              <div class="cloud c3"></div>
-              <div class="cloud c4"></div>
-            </div>
-          </div>
+    <!-- IMPORTANT: wrapper pentru 2 coloane -->
+    <main id="top" class="split-layout">
+      <!-- LEFT COLUMN (persistent) -->
+      <aside class="left-panel" aria-label="Profile">
+        <!-- hero rămâne mereu vizibil, NU îl includem în .page -->
+        <section id="home" class="hero hero-card">
+          <div class="hero-grid hero-grid--one">
+            <div class="hero-left">
+              <div class="hero-top">
+                <div class="memoji-card memoji--tl" aria-hidden="true">
+                  <img class="memoji-img" src="./IMG_3263.heic" alt="" />
+                </div>
           
-        </div>
-
-        <!-- SKILLS MARQUEE -->
-        <div class="skills-bar" aria-label="Skills">
-          <div class="skills-track">
-            <span>Front-end Developing</span><span class="dot">✦</span>
-            <span>Web developing</span><span class="dot">✦</span>
-            <span>App developing</span><span class="dot">✦</span>
-            
-
-            <!-- repeat once so it feels “infinite” even without JS -->
-            <span class="spacer"></span>
-            <span>Front-end Developing</span><span class="dot">✦</span>
-            <span>Web developing</span><span class="dot">✦</span>
-            <span>App developing</span><span class="dot">✦</span>
-
+                <p class="kicker">I’m</p>
+              </div>
           
-          </div>
-        </div>
-      </section>
-
-      <!-- ABOUT -->
-      <section id="about" class="section">
-        <div class="container">
-          <h2 class="section-title">About Me</h2>
-
-          <div class="about-grid">
-            <div class="about-left">
-              <div class="about-portrait" aria-hidden="true">
-                <div class="sparkle s1">✦</div>
-                <div class="sparkle s2">✦</div>
-                <div class="portrait-emoji">🙂</div>
-                <div class="hand">✌️</div>
+              <h1 class="hero-title">
+                <span class="name">Daiana-Alexandra</span>
+                <span class="surname">Horvath</span>
+              </h1>
+          
+              
+          
+              <div class="hero-badges">
+                <span class="badge">Cybersecurity MSc</span>
+                <span class="badge">Front-end</span>
+                <span class="badge">Cluj • Brașov</span>
+              </div>
+          
+              <div class="hero-cta">
+                <a class="btn btn-primary" href="#contact">Hire Me</a>
+                <a class="btn btn-soft" href="#experience">My Projects <span aria-hidden="true">→</span></a>
               </div>
             </div>
+          </div>
 
-            <div class="about-right">
-              <p class="about-text">
-                Hey there! I’m <strong>Your Name</strong>, a passionate UI/UX designer armed with creativity and a love
-                for problem-solving. With a blend of design thinking and user-centric approach, I’m on a mission to create
-                digital experiences that leave a lasting impression.
+          <div class="skills-bar" aria-label="Skills">
+            <div class="skills-track">
+              <span>Front-end Developing</span><span class="dot">✦</span>
+              <span>Web developing</span><span class="dot">✦</span>
+              <span>App developing</span><span class="dot">✦</span>
+              <span>Database manipulation</span><span class="dot">✦</span>
+              <span>Web exploitation</span><span class="dot">✦</span>
+              <span>CTF player</span><span class="dot">✦</span>
+              <span>Problem solver</span><span class="dot">✦</span>
+              <span>Logic and analytical thinker</span><span class="dot">✦</span>
+
+              <span class="spacer"></span>
+
+              <span>Front-end Developing</span><span class="dot">✦</span>
+              <span>Web developing</span><span class="dot">✦</span>
+              <span>App developing</span><span class="dot">✦</span>
+              <span>Database manipulation</span><span class="dot">✦</span>
+              <span>Web exploitation</span><span class="dot">✦</span>
+              <span>CTF player</span><span class="dot">✦</span>
+              <span>Problem solver</span><span class="dot">✦</span>
+              <span>Logic and analytical thinker</span><span class="dot">✦</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- RIGHT COLUMN (changes) -->
+      <section class="right-panel" id="content" aria-label="Content">
+        <!-- ABOUT (default active) -->
+        <section id="about" class="section page is-active" data-page="about">
+          <div class="container">
+            <h2 class="section-title">About Me</h2>
+
+    
+
+              <div class="about-right">
+                <p class="about-text">
+                  I am a graduate of the Technical University of Cluj-Napoca, with a Bachelor’s degree in Telecommunications Systems and Technologies,
+                  and I am currently pursuing a Master’s degree in Cybersecurity at Transilvania University of Brașov.
+                  My academic background combines engineering fundamentals with a growing focus on secure and reliable software systems.
+                </p>
+
+                <p class="about-text">
+                  I am particularly interested in front-end and application development, where I enjoy transforming complex requirements into clean,
+                  structured, and user-friendly interfaces. Alongside UI development, I have a strong interest in cybersecurity topics such as ethical hacking,
+                  security testing, and understanding how vulnerabilities can emerge at both application and infrastructure levels.
+                </p>
+
+                <p class="about-text">
+                  Throughout my studies and personal projects, I have worked with multiple programming languages and technologies, ranging from low-level
+                  concepts to modern web and mobile frameworks. I value continuous learning, practical experimentation, and hands-on projects as the best
+                  way to strengthen my technical skills.
+                </p>
+
+                <p class="about-text">
+                  I am motivated, collaborative, and adaptable, with strong communication skills and a problem-solving mindset.
+                  I am eager to apply my knowledge in real-world environments, contribute to meaningful projects, and grow professionally
+                  while working alongside experienced engineers.
+                </p>
+
+                <div class="stats">
+                  <button class="stat flip" type="button" aria-expanded="false">
+                    <span class="flip-inner">
+                      <span class="flip-front">
+                        <span class="stat-num">MSc</span>
+                        <span class="stat-label">Cybersecurity<br/>Student</span>
+                      </span>
+                      <span class="flip-back">
+                        <span class="flip-title">MSc — Cybersecurity</span>
+                        <span class="flip-text">
+                          Master’s student focusing on security fundamentals, testing, and secure software practices.
+                        </span>
+                      </span>
+                    </span>
+                  </button>
+                
+                  <button class="stat flip" type="button" aria-expanded="false">
+                    <span class="flip-inner">
+                      <span class="flip-front">
+                        <span class="stat-num">BSc</span>
+                        <span class="stat-label">Telecom<br/>Engineering</span>
+                      </span>
+                      <span class="flip-back">
+                        <span class="flip-title">BSc — Telecom</span>
+                        <span class="flip-text">
+                          Engineering background: networks, systems, and solid technical fundamentals.
+                        </span>
+                      </span>
+                    </span>
+                  </button>
+                
+                  <button class="stat flip" type="button" aria-expanded="false">
+                    <span class="flip-inner">
+                      <span class="flip-front">
+                        <span class="stat-num">CTF</span>
+                        <span class="stat-label">Security &<br/>Learning</span>
+                      </span>
+                      <span class="flip-back">
+                        <span class="flip-title">CTF practice</span>
+                        <span class="flip-text">
+                          Learning by doing: web challenges, methodology, and write-ups.
+                        </span>
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="section section-muted page" data-page="experience">
+          <div class="container">
+            <div class="section-head">
+              <h2 class="section-title">Practical Experience</h2>
+              <p class="muted">
+                A few projects I built — focused on clean UI, solid logic, and real-world functionality.
               </p>
+            </div>
 
-              <div class="stats">
-                <div class="stat">
-                  <div class="stat-num">5+</div>
-                  <div class="stat-label">Years of Design<br/>Experience</div>
+            <div class="cards-grid">
+              <article class="card">
+                <div class="card-top">
+                  <h3 class="card-title">Ticket Management System</h3>
+                  <p class="card-subtitle">React + Vite • Node/Express • REST API</p>
                 </div>
-                <div class="stat">
-                  <div class="stat-num">50+</div>
-                  <div class="stat-label">Overall Global<br/>Customers</div>
+
+                <p class="card-text">
+                  Full-stack app for creating and managing support tickets: authentication, CRUD flows, and clean UI.
+                </p>
+
+                <ul class="card-tags" aria-label="Tech stack">
+                  <li>React</li><li>Vite</li><li>TypeScript</li><li>Node</li><li>REST</li>
+                </ul>
+
+                <div class="card-actions">
+                  <a class="btn btn-soft" href="#" target="_blank" rel="noreferrer">Live Demo</a>
+                  <a class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">GitHub</a>
                 </div>
-                <div class="stat">
-                  <div class="stat-num">90+</div>
-                  <div class="stat-label">Projects I have<br/>worked on</div>
+              </article>
+
+              <article class="card">
+                <div class="card-top">
+                  <h3 class="card-title">Cybersecurity Mini-Labs</h3>
+                  <p class="card-subtitle">Web security • Testing • CTF practice</p>
                 </div>
-              </div>
+
+                <p class="card-text">
+                  Practical exercises: input validation, common web vulnerabilities, and safe testing methodology.
+                </p>
+
+                <ul class="card-tags" aria-label="Tech stack">
+                  <li>OWASP</li><li>Burp</li><li>Web testing</li><li>CTF</li>
+                </ul>
+
+                <div class="card-actions">
+                  <a class="btn btn-soft" href="#" target="_blank" rel="noreferrer">Write-up</a>
+                  <a class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">Notes</a>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card-top">
+                  <h3 class="card-title">Personal Portfolio Website</h3>
+                  <p class="card-subtitle">HTML • CSS • JavaScript</p>
+                </div>
+
+                <p class="card-text">
+                  Responsive single-page portfolio with accessible navigation, contact section, and clean UI components.
+                </p>
+
+                <ul class="card-tags" aria-label="Tech stack">
+                  <li>HTML5</li><li>CSS3</li><li>ES6</li><li>Responsive</li><li>A11y</li>
+                </ul>
+
+                <div class="card-actions">
+                  <a class="btn btn-soft" href="#top">View</a>
+                  <a class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </article>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- WORK (placeholder) -->
-      <section id="work" class="section section-muted">
-        <div class="container">
-          <h2 class="section-title">Work</h2>
-          <p class="muted">
-            Aici pui proiectele tale (cards). Dacă vrei, îți fac și secțiunea Work ca în template-uri moderne.
-          </p>
-        </div>
-      </section>
+        <!-- CONTACT -->
+        <section id="contact" class="section page" data-page="contact">
+          <div class="container">
+            <h2 class="section-title">Contact</h2>
 
-      <!-- CONTACT (placeholder) -->
-      <section id="contact" class="section">
-        <div class="container">
-          <h2 class="section-title">Contact</h2>
-          <p class="muted">
-            Email: <a href="mailto:you@example.com">you@example.com</a>
-          </p>
-        </div>
+            <div class="contact-grid">
+              <div class="contact-left">
+                <p class="muted">
+                  Email: <a href="mailto:horvathdaiana@yahoo.com">horvathdaiana@yahoo.com</a>
+                </p>
+                <p class="muted">
+                  Location: Cluj • Brașov
+                </p>
+              </div>
+
+              <form id="contact-form" class="contact-form" novalidate>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" autocomplete="email" required />
+                  <small class="error" id="email-error" aria-live="polite"></small>
+                </div>
+
+                <div class="field">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="4" minlength="10" required></textarea>
+                  <small class="error" id="message-error" aria-live="polite"></small>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Send</button>
+                <p class="muted" id="form-status" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-inner">
-        <span class="muted">© <span id="year"></span> Your Name</span>
-        <span class="muted">Built with HTML + CSS</span>
+        <span class="muted">© <span id="year"></span> Daiana-Alexandra HORVATH</span>
       </div>
     </footer>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    <script src="./js/main.js"></script>
   </body>
 </html>
