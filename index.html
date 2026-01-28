@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Daiana Horvath — Portfolio</title>
+    <script>
+      (function(){
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+        } catch (_) {}
+      })();
+    </script>
     <link rel="stylesheet" href="style.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +26,6 @@
     <!-- HEADER / NAV (rămâne la fel, nu schimbăm look-ul) -->
     <header class="header">
       <div class="container nav">
-        <a class="logo" href="#about">LOGO</a>
 
         <button
           class="nav-toggle"
@@ -31,13 +38,16 @@
         </button>
 
         <nav id="primary-nav" class="nav-links" aria-label="Primary">
-          <!-- Home poate să ducă la About (dreapta), fiindcă hero-ul e permanent în stânga -->
-          <a href="#home" class="active">Home</a>
-          <a href="#about">About</a>
+          <a href="#about" class="active">About</a>
+          <a href="#projects">Projects</a>
           <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
         </nav>
 
+        <button type="button" class="theme-toggle btn btn-ghost" aria-label="Switch to light mode" title="Light mode">
+          <span class="theme-toggle-icon" aria-hidden="true">☀️</span>
+          <span class="theme-toggle-text">Light</span>
+        </button>
         <a class="btn btn-ghost" href="./resume.html">Resume <span aria-hidden="true">↗</span></a>
       </div>
     </header>
@@ -72,8 +82,8 @@
               </div>
           
               <div class="hero-cta">
-                <a class="btn btn-primary" href="#contact">Hire Me</a>
-                <a class="btn btn-soft" href="#experience">My Projects <span aria-hidden="true">→</span></a>
+                <a class="btn btn-primary" href="#contact">Contact me</a>
+                <a class="btn btn-soft" href="#projects">My Projects <span aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
@@ -148,7 +158,7 @@
                       <span class="flip-back">
                         <span class="flip-title">MSc — Cybersecurity</span>
                         <span class="flip-text">
-                          Master’s student focusing on security fundamentals, testing, and secure software practices.
+                          Master’s student focusing on security fundamentals, penetration testing, and secure software practices. The programme covers network security, cryptography, incident response, and ethical hacking. I work on hands-on labs and research projects to apply theory in realistic scenarios.
                         </span>
                       </span>
                     </span>
@@ -163,7 +173,7 @@
                       <span class="flip-back">
                         <span class="flip-title">BSc — Telecom</span>
                         <span class="flip-text">
-                          Engineering background: networks, systems, and solid technical fundamentals.
+                          Bachelor's degree in Telecommunications Systems and Technologies from the Technical University of Cluj-Napoca. Strong foundation in computer networks, signal processing, embedded systems, and software development. This background supports my work in both development and security.
                         </span>
                       </span>
                     </span>
@@ -178,7 +188,7 @@
                       <span class="flip-back">
                         <span class="flip-title">CTF practice</span>
                         <span class="flip-text">
-                          Learning by doing: web challenges, methodology, and write-ups.
+                          I learn security by solving Capture The Flag challenges: web exploitation, crypto, forensics, and reverse engineering. I keep notes and write-ups to reinforce methodology and share approaches. This practice sharpens both offensive and defensive thinking in a low-risk environment.
                         </span>
                       </span>
                     </span>
@@ -189,79 +199,201 @@
           </div>
         </section>
 
-        <!-- EXPERIENCE -->
-        <section id="experience" class="section section-muted page" data-page="experience">
+        <!-- PERSONAL PROJECTS -->
+        <section id="projects" class="section section-muted page" data-page="projects">
           <div class="container">
             <div class="section-head">
-              <h2 class="section-title">Practical Experience</h2>
+              <h2 class="section-title">Personal Projects</h2>
               <p class="muted">
-                A few projects I built — focused on clean UI, solid logic, and real-world functionality.
+                Projects I built — focused on clean UI, solid logic, and real-world functionality.
               </p>
             </div>
 
-            <div class="cards-grid">
-              <article class="card">
-                <div class="card-top">
-                  <h3 class="card-title">Ticket Management System</h3>
-                  <p class="card-subtitle">React + Vite • Node/Express • REST API</p>
-                </div>
+            <div class="experience-list">
 
-                <p class="card-text">
-                  Full-stack app for creating and managing support tickets: authentication, CRUD flows, and clean UI.
+              <article class="experience-item">
+                <h3 class="experience-title">Personal Portfolio Website</h3>
+                <p class="experience-meta">HTML • CSS • JavaScript • Accessibility • Automated Deployment (GitHub Pages)</p>
+              
+                <p class="experience-text">
+                  Responsive portfolio built with semantic HTML, modern CSS, and vanilla JavaScript.
+                  Focused on clean UI, accessible navigation (keyboard support, meaningful labels), and clear presentation of projects and skills.
+                  The website is automatically built and deployed via GitHub Pages (deploy from the main branch), enabling fast updates on each push.
                 </p>
-
-                <ul class="card-tags" aria-label="Tech stack">
-                  <li>React</li><li>Vite</li><li>TypeScript</li><li>Node</li><li>REST</li>
+              
+                <ul class="experience-tags" aria-label="Tech stack">
+                  <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Responsive</li><li>A11y</li><li>GitHub Pages</li>
                 </ul>
-
-                <div class="card-actions">
-                  <a class="btn btn-soft" href="#" target="_blank" rel="noreferrer">Live Demo</a>
-                  <a class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">GitHub</a>
+              
+                <div class="experience-actions">
+                  <a class="btn btn-ghost" href="https://github.com/daiianaaa/personal_site" target="_blank" rel="noreferrer"
+                     aria-label="Personal Portfolio Website — GitHub Repository">
+                    GitHub
+                  </a>
+                </div>
+              </article>
+              
+              <article class="experience-item">
+                <h3 class="experience-title">Cross-Platform Mobile Application for Private Media & Events</h3>
+                <p class="experience-meta">React Native • TypeScript • Expo Router • Node.js • JWT • 2FA</p>
+                <p class="experience-text">
+                  Cross-platform mobile app for iOS and Android focused on private media sharing and event-based access.
+                  Built a modern, smooth UI with animated transitions and tab-based navigation. Authentication is secured
+                  using JWT and two-factor authentication (2FA). Private photo galleries are synchronized via a custom
+                  Node.js microservice, with additional integrations through custom WordPress plugins.
+                </p>
+                <ul class="experience-tags" aria-label="Tech stack">
+                  <li>React Native</li><li>TypeScript</li><li>Expo Router</li><li>Node.js</li><li>JWT</li>
+                </ul>
+                <div class="experience-actions">
+                  <a class="btn btn-ghost" href="https://github.com/daiianaaa/ndp-app" target="_blank" rel="noreferrer"
+                     aria-label="Cross-Platform Mobile Application for Private Media & Events — GitHub Repository">
+                    GitHub
+                  </a>
                 </div>
               </article>
 
-              <article class="card">
-                <div class="card-top">
-                  <h3 class="card-title">Cybersecurity Mini-Labs</h3>
-                  <p class="card-subtitle">Web security • Testing • CTF practice</p>
-                </div>
-
-                <p class="card-text">
-                  Practical exercises: input validation, common web vulnerabilities, and safe testing methodology.
+              <!-- Project 2 -->
+              <article class="experience-item">
+                <h3 class="experience-title">iOS To-Do List Application</h3>
+                <p class="experience-meta">Swift • iOS SDK • Native iOS</p>
+                <p class="experience-text">
+                  Native iOS task-management application focused on productivity. Implemented core flows for creating,
+                  editing, and deleting tasks, with a clean and intuitive interface aligned with iOS design guidelines.
                 </p>
-
-                <ul class="card-tags" aria-label="Tech stack">
-                  <li>OWASP</li><li>Burp</li><li>Web testing</li><li>CTF</li>
+                <ul class="experience-tags" aria-label="Tech stack">
+                  <li>Swift</li><li>iOS SDK</li><li>Native iOS</li><li>CRUD</li><li>UI Guidelines</li>
                 </ul>
-
-                <div class="card-actions">
-                  <a class="btn btn-soft" href="#" target="_blank" rel="noreferrer">Write-up</a>
-                  <a class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">Notes</a>
-                </div>
               </article>
 
-              <article class="card">
-                <div class="card-top">
-                  <h3 class="card-title">Personal Portfolio Website</h3>
-                  <p class="card-subtitle">HTML • CSS • JavaScript</p>
-                </div>
+              <!-- Project 3 -->
+              
 
-                <p class="card-text">
-                  Responsive single-page portfolio with accessible navigation, contact section, and clean UI components.
+              <!-- Project 4 -->
+              <article class="experience-item">
+                <h3 class="experience-title">Cybersecurity Mini-Labs & CTF Practice</h3>
+                <p class="experience-meta">OWASP • Web Exploitation • Crypto • Forensics • Reverse Engineering</p>
+                <p class="experience-text">
+                  Hands-on security practice through mini-labs and Capture The Flag challenges. Focused on understanding
+                  common web vulnerabilities in controlled environments, solving challenges across web exploitation,
+                  cryptography, forensics, and reverse engineering, and documenting methodologies through notes and write-ups.
                 </p>
-
-                <ul class="card-tags" aria-label="Tech stack">
-                  <li>HTML5</li><li>CSS3</li><li>ES6</li><li>Responsive</li><li>A11y</li>
+                <ul class="experience-tags" aria-label="Tech stack">
+                  <li>OWASP</li><li>Web Security</li><li>CTF</li><li>Testing</li><li>Write-ups</li>
                 </ul>
-
-                <div class="card-actions">
-                  <a class="btn btn-soft" href="#top">View</a>
-                  <a class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
               </article>
+
+              <!-- Project: Management System -->
+<article class="experience-item">
+  <h3 class="experience-title">Management System for a Small Company</h3>
+  <p class="experience-meta">React (Vite) • Node.js • Express • REST API • JSON persistence</p>
+
+  <p class="experience-text">
+    I made an internal-style management application designed for a small company environment.
+    The system features a React (Vite) frontend and a Node.js/Express backend exposing a RESTful API.
+    Core functionality includes user and product/client management, reporting workflows, and basic administration features.
+    Data is currently persisted using structured JSON storage, with a planned migration to a database-based solution for scalability.
+  </p>
+
+  <ul class="experience-tags" aria-label="Tech stack">
+    <li>React</li><li>Vite</li><li>Node.js</li><li>Express</li><li>REST API</li>
+  </ul>
+
+  <div class="experience-actions">
+    <a class="btn btn-ghost" href="https://github.com/daiianaaa/gestiune_app" target="_blank" rel="noreferrer"
+       aria-label="Management System for a Small Company — GitHub Repository">
+      GitHub
+    </a>
+  </div>
+</article>
             </div>
           </div>
         </section>
+
+        <!-- EXPERIENCE (Work) -->
+        <!-- EXPERIENCE (Work + Training) -->
+<section id="experience" class="section page" data-page="experience">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Experience</h2>
+      <p class="muted">
+        Work experience and continuous learning in frontend and cybersecurity.
+      </p>
+    </div>
+
+    <!-- folosim aceleași clase ca la Projects ca să arate la fel -->
+    <div class="experience-list">
+      <!-- NTT DATA -->
+      <article class="experience-item">
+        <h3 class="experience-title">NTT DATA Romania — Working Student</h3>
+        <p class="experience-meta">Infrastructure & Platform Services • Dec 2024 — Present</p>
+
+        <p class="experience-text">
+          Working in a professional environment where I developed strong collaboration and communication skills,
+          learned to follow structured processes, and improved my ability to troubleshoot issues and deliver results
+          under real-world constraints.
+        </p>
+
+        <ul class="experience-tags" aria-label="Key areas">
+          <li>Infrastructure</li>
+          <li>Platforms</li>
+          <li>Team collaboration</li>
+          <li>Problem solving</li>
+          <li>Professional workflows</li>
+        </ul>
+      </article>
+
+      <!-- Courses / learning -->
+      <article class="experience-item">
+        <h3 class="experience-title">Continuous Learning — Courses & Self-Study</h3>
+        <p class="experience-meta">Networking • Linux • Databases • Cybersecurity • Cloud</p>
+
+        <p class="experience-text">
+          Alongside my work, I actively build skills through courses and hands-on learning, focusing on both
+          software development and cybersecurity fundamentals.
+        </p>
+
+        <ul class="experience-tags" aria-label="Topics covered">
+          <li>Networking</li>
+          <li>Linux</li>
+          <li>Databases</li>
+          <li>Ethical Hacking (Udemy)</li>
+          <li>Azure</li>
+          <li>Mobile Cybersecurity</li>
+        </ul>
+      </article>
+
+      <!-- Frontend + Angular training -->
+      <article class="experience-item">
+        <h3 class="experience-title">Frontend + Angular Academy Training</h3>
+        <p class="experience-meta">In progress • Practical learning and weekly modules</p>
+
+        <p class="experience-text">
+          Currently following a structured frontend training program with focus on modern web fundamentals,
+          tooling, and best practices, while building practical projects and improving my development workflow.
+        </p>
+
+        <ul class="experience-tags" aria-label="Training modules">
+          <li>HTTP & REST</li>
+          <li>DNS & how it works</li>
+          <li>Browser DevTools</li>
+          <li>Cookies</li>
+          <li>Hosting basics</li>
+          <li>Git / Version Control</li>
+          <li>IDEs & workflow</li>
+          <li>Build tools (Webpack)</li>
+          <li>Debugging</li>
+          <li>HTML basics</li>
+          <li>Forms & validation</li>
+          <li>Semantics</li>
+          <li>Best practices</li>
+          <li>SEO basics</li>
+          <li>CSS layout & box model</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
 
         <!-- CONTACT -->
         <section id="contact" class="section page" data-page="contact">

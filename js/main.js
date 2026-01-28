@@ -61,37 +61,45 @@ function setYear() {
     });
   }
   
-  // ===== Simple SPA navigation (hash-based) =====
+  // ===== Simple SPA navigation (hash-based); mobile = single-page scroll =====
   function setupSPA() {
     const pages = document.querySelectorAll(".right-panel .page");
     const navLinks = document.querySelectorAll('#primary-nav a[href^="#"]');
     const rightPanel = document.querySelector(".right-panel");
-  
+
     if (!pages.length || !navLinks.length) return;
-  
+
+    const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
+
     function setActivePage(hash) {
       const id = (hash || "#about").replace("#", "");
-  
+
       const exists = Array.from(pages).some((p) => p.id === id);
       const targetId = exists ? id : "about";
-  
+
       pages.forEach((p) => p.classList.toggle("is-active", p.id === targetId));
       navLinks.forEach((a) =>
         a.classList.toggle("active", a.getAttribute("href") === `#${targetId}`)
       );
-  
-      if (rightPanel) rightPanel.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (!isMobile() && rightPanel) rightPanel.scrollTo({ top: 0, behavior: "smooth" });
     }
-  
+
     navLinks.forEach((a) => {
       a.addEventListener("click", (e) => {
+        if (isMobile()) return;
         e.preventDefault();
         window.location.hash = a.getAttribute("href");
       });
     });
-  
+
     window.addEventListener("hashchange", () => setActivePage(window.location.hash));
-    setActivePage(window.location.hash);
+    const initialHash = window.location.hash;
+    if (!initialHash || initialHash === "#home") {
+      window.location.hash = "#about";
+    } else {
+      setActivePage(initialHash);
+    }
   }
   function setupFlipStats() {
     const cards = document.querySelectorAll(".stat.flip");
@@ -116,45 +124,65 @@ function setYear() {
   function setupStatsZoom() {
     const stats = document.querySelector(".stats");
     if (!stats) return;
-  
+
     let overlay = document.querySelector(".stats-overlay");
     if (!overlay) {
       overlay = document.createElement("div");
       overlay.className = "stats-overlay";
       document.body.appendChild(overlay);
     }
-  
+
     const cards = stats.querySelectorAll(".stat");
     let openCard = null;
-  
+    let openCardParent = null;
+    let openCardNext = null;
+
     const close = () => {
       if (!openCard) return;
-  
-      // scoatem animatia "in"
+
       openCard.classList.remove("is-in");
-  
-      // dupa tranzitie, curatam
+
       setTimeout(() => {
-        if (openCard) openCard.classList.remove("zoomed");
+        if (openCard) {
+          openCard.classList.remove("zoomed", "is-flipped");
+          if (openCardParent) {
+            if (openCardNext) {
+              openCardParent.insertBefore(openCard, openCardNext);
+            } else {
+              openCardParent.appendChild(openCard);
+            }
+          }
+        }
         overlay.classList.remove("is-open");
         document.body.style.overflow = "";
         openCard = null;
-      }, 220);
+        openCardParent = null;
+        openCardNext = null;
+      }, 300);
     };
-  
+
     const open = (card) => {
-      // daca era altul deschis, inchide-l instant
       if (openCard && openCard !== card) {
         openCard.classList.remove("zoomed", "is-in");
+        if (openCardParent) {
+          if (openCardNext) {
+            openCardParent.insertBefore(openCard, openCardNext);
+          } else {
+            openCardParent.appendChild(openCard);
+          }
+        }
         openCard = null;
       }
-  
+
       openCard = card;
+      openCardParent = card.parentNode;
+      openCardNext = card.nextSibling;
+
+      document.body.appendChild(card);
       overlay.classList.add("is-open");
       card.classList.add("zoomed");
       document.body.style.overflow = "hidden";
-  
-      // trigger animatie "in"
+
       requestAnimationFrame(() => card.classList.add("is-in"));
     };
   
@@ -162,21 +190,67 @@ function setYear() {
       card.style.cursor = "pointer";
       card.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (card.classList.contains("zoomed")) close();
-        else open(card);
+        e.stopImmediatePropagation();
+        if (card.classList.contains("zoomed")) {
+          e.stopPropagation();
+          return;
+        }
+        open(card);
       });
     });
-  
+
     overlay.addEventListener("click", close);
   
     // IMPORTANT: NU mai avem ESC
   }
   
+  function setupThemeToggle() {
+    const STORAGE_KEY = "theme";
+    const root = document.documentElement;
+    const btn = document.querySelector(".theme-toggle");
+    const icon = document.querySelector(".theme-toggle-icon");
+    const text = document.querySelector(".theme-toggle-text");
+
+    function getStored() {
+      try {
+        return localStorage.getItem(STORAGE_KEY);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function applyTheme(theme) {
+      const isLight = theme === "light";
+      root.setAttribute("data-theme", isLight ? "light" : "");
+      if (btn) {
+        btn.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+        btn.setAttribute("title", isLight ? "Dark mode" : "Light mode");
+        if (icon) icon.textContent = isLight ? "🌙" : "☀️";
+        if (text) text.textContent = isLight ? "Dark" : "Light";
+      }
+      try {
+        localStorage.setItem(STORAGE_KEY, isLight ? "light" : "dark");
+      } catch (_) {}
+    }
+
+    function toggleTheme() {
+      const current = root.getAttribute("data-theme");
+      applyTheme(current === "light" ? "dark" : "light");
+    }
+
+    const stored = getStored();
+    const initial = stored === "light" ? "light" : "dark";
+    applyTheme(initial);
+
+    if (btn) btn.addEventListener("click", toggleTheme);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     setYear();
+    setupThemeToggle();
     setupMobileNav();
     setupContactForm();
     setupSPA();
+    setupStatsZoom();  // runs first so one click = zoom only (smoother)
     setupFlipStats();
-    setupStatsZoom();
   });
