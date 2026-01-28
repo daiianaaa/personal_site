@@ -1,4 +1,11 @@
 /* ============ Base ============ */
+/* Fluid scaling: root font rescales with viewport (responsive to phone resolution) */
+html{
+  font-size: clamp(12px, 2.8vw + 10px, 16px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 :root{
     --bg: #0b0c10;
     --card: rgba(255,255,255,.06);
@@ -17,6 +24,10 @@
     --shadow: 0 18px 60px rgba(0,0,0,.55);
     --radius: 18px;
     --radius2: 28px;
+    /* Fluid spacing (scale with viewport when using rem) */
+    --fluid-pad: clamp(0.5rem, 3vw, 1.5rem);
+    --fluid-gap: clamp(0.375rem, 2vw, 1rem);
+    --fluid-section: clamp(1.5rem, 5vw, 3.5rem);
   }
 
 /* Light theme (purple-ish + white) */
@@ -106,8 +117,11 @@ body{
   
   a{ color: inherit; text-decoration: none; }
   .container{
-    width: min(1100px, calc(100% - 40px));
+    width: 100%;
+    max-width: 1100px;
     margin: 0 auto;
+    padding-left: var(--fluid-pad);
+    padding-right: var(--fluid-pad);
   }
   
   .muted{ color: var(--muted); }
@@ -239,13 +253,13 @@ body{
 }
 
 .kicker{
-  font-size: 44px;
-  margin: 0 0 10px;
+  font-size: clamp(1.5rem, 6vw + 1rem, 2.75rem);
+  margin: 0 0 0.5rem;
 }
 
 .hero-title{
   margin: 0;
-  font-size: clamp(44px, 5.2vw, 68px);
+  font-size: clamp(1.75rem, 5vw + 1.25rem, 4.25rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
   overflow-wrap: break-word;
@@ -407,7 +421,7 @@ body{
   
   /* ============ Sections ============ */
   .section{
-    padding: 56px 0;
+    padding: var(--fluid-section) 0;
   }
   
   .section-muted{
@@ -417,8 +431,8 @@ body{
   }
   
   .section-title{
-    margin: 0 0 18px;
-    font-size: 22px;
+    margin: 0 0 var(--fluid-pad);
+    font-size: clamp(1.15rem, 2.5vw + 0.8rem, 1.375rem);
     letter-spacing: -0.01em;
   }
   
@@ -1004,15 +1018,18 @@ body{
 
 /* 2 coloane (hero stânga permanent, conținut dreapta cu scroll) */
 .split-layout{
-  width: min(1100px, calc(100% - 40px));
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
+  padding-left: var(--fluid-pad);
+  padding-right: var(--fluid-pad);
+  padding-top: var(--fluid-pad);
 
   display: grid;
-  grid-template-columns: 520px 1fr; /* <-- aici îl faci mai “slim” */
-  gap: 22px;
+  grid-template-columns: minmax(0, 520px) 1fr;
+  gap: var(--fluid-pad);
 
   height: calc(100vh - 64px);
-  padding-top: 22px;
   min-height: 0;
 }
 
@@ -1266,65 +1283,82 @@ body{
     display: block !important;
   }
 
-  /* Hero: compact so it doesn’t dominate on small screens */
-  .hero{ padding-top: 8px; }
+  /* Hero: compact and fluid on small screens */
+  .hero{ padding-top: var(--fluid-gap); }
   .hero-grid{
-    padding: 18px 16px;
-    border-radius: 16px;
+    padding: var(--fluid-pad);
+    border-radius: clamp(0.75rem, 3vw, 1rem);
   }
-  .kicker{ font-size: 32px; margin: 0 0 6px; }
-  .hero-title{ font-size: clamp(28px, 8vw, 44px); }
-  .hero-badges{ margin: 8px 0 10px; gap: 8px; }
-  .badge{ padding: 6px 10px; font-size: 11px; }
-  .hero-cta{ margin-top: 4px; gap: 8px; flex-wrap: wrap; }
-  .hero-cta .btn{ padding: 9px 14px; font-size: 12px; }
+  .kicker{ font-size: clamp(1.25rem, 5vw + 0.75rem, 1.5rem); margin: 0 0 0.35rem; }
+  .hero-title{ font-size: clamp(1.4rem, 6vw + 0.8rem, 2.75rem); }
+  .hero-badges{ margin: var(--fluid-gap) 0; gap: var(--fluid-gap); }
+  .badge{ padding: 0.35rem 0.6rem; font-size: 0.7rem; }
+  .hero-cta{ margin-top: var(--fluid-gap); gap: var(--fluid-gap); flex-wrap: wrap; }
+  .hero-cta .btn{ padding: 0.5rem 0.85rem; font-size: 0.75rem; }
   .hero-cta .btn-primary{ flex: 1; min-width: 0; }
   .hero-cta .btn-soft{ flex: 1; min-width: 0; }
-  .skills-bar{ width: 100%; max-width: 100%; margin: 12px 0 0; border-radius: 14px; }
+  .skills-bar{ width: 100%; max-width: 100%; margin: var(--fluid-pad) 0 0; border-radius: clamp(0.5rem, 2vw, 0.875rem); }
   .skills-track:not(.skills-track--mobile){ display: none !important; }
   .skills-track--mobile{
     display: flex !important;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 6px 10px;
-    padding: 10px 12px;
+    gap: 0.35rem 0.6rem;
+    padding: var(--fluid-gap) var(--fluid-pad);
     white-space: normal;
     animation: none;
-    font-size: 11px;
+    font-size: 0.7rem;
     color: var(--muted);
   }
   .skills-track--mobile .dot{ opacity: .7; }
-  .memoji-card{ width: min(140px, 36vw); }
+  .memoji-card{ width: min(8rem, 36vw); }
   .stats{ grid-template-columns: 1fr; }
+  .section{ padding: var(--fluid-section) 0; }
 }
 
 @media (max-width: 760px){
-  .split-layout{ padding: 10px 12px 20px; }
-  .hero-grid{ padding: 14px 12px; }
+  .split-layout{ padding: var(--fluid-pad) var(--fluid-gap) var(--fluid-section); }
+  .hero-grid{ padding: var(--fluid-pad); }
   .about-grid{ grid-template-columns: 1fr; }
-  .memoji{ font-size: 96px; }
+  .memoji{ font-size: 6rem; }
 
-  .section{ padding: 32px 0; }
-  .section-title{ font-size: 20px; }
-  .experience-item{ padding: 16px 0; }
+  .section{ padding: var(--fluid-section) 0; }
+  .section-title{ font-size: clamp(1rem, 3vw + 0.75rem, 1.25rem); }
+  .experience-item{ padding: var(--fluid-pad) 0; }
   .experience-title{ font-size: 1rem; }
-  .work-item{ padding: 16px 0; }
+  .work-item{ padding: var(--fluid-pad) 0; }
   .work-role{ font-size: 1rem; }
 
-  .kicker{ font-size: 28px; }
-  .hero-title{ font-size: clamp(24px, 7vw, 36px); }
-  .memoji-card{ width: min(120px, 32vw); }
+  .kicker{ font-size: clamp(1.1rem, 4vw + 0.6rem, 1.4rem); }
+  .hero-title{ font-size: clamp(1.2rem, 5vw + 0.7rem, 1.6rem); }
+  .memoji-card{ width: min(7rem, 32vw); }
 }
 
 @media (max-width: 480px){
-  .split-layout{ padding: 8px 10px 16px; }
-  .hero-grid{ padding: 12px 10px; }
-  .kicker{ font-size: 24px; }
-  .hero-title{ font-size: clamp(22px, 6.5vw, 30px); }
-  .hero-badges{ gap: 6px; }
-  .badge{ padding: 5px 8px; font-size: 10px; }
-  .hero-cta .btn{ padding: 8px 12px; font-size: 11px; }
-  .section{ padding: 28px 0; }
+  .split-layout{ padding: var(--fluid-gap) var(--fluid-pad) var(--fluid-section); }
+  .hero-grid{ padding: var(--fluid-pad); }
+  .kicker{ font-size: clamp(1rem, 4vw + 0.5rem, 1.25rem); }
+  .hero-title{ font-size: clamp(1.1rem, 4.5vw + 0.5rem, 1.5rem); }
+  .hero-badges{ gap: 0.35rem; }
+  .badge{ padding: 0.3rem 0.5rem; font-size: 0.65rem; }
+  .hero-cta .btn{ padding: 0.45rem 0.75rem; font-size: 0.7rem; }
+  .section{ padding: var(--fluid-section) 0; }
+}
+
+/* Safe area insets for notched phones (reactive to device) */
+@supports (padding: max(0px)) {
+  .header .container,
+  .split-layout,
+  .footer .container{
+    padding-left: max(var(--fluid-pad), env(safe-area-inset-left));
+    padding-right: max(var(--fluid-pad), env(safe-area-inset-right));
+  }
+  .split-layout{
+    padding-top: max(var(--fluid-pad), env(safe-area-inset-top));
+  }
+  body{
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
   
   @media (prefers-reduced-motion: reduce){
