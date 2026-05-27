@@ -34,29 +34,62 @@ function setYear() {
     const form = document.getElementById("contact-form");
     if (!form) return;
   
+    const name = form.querySelector("#name");
     const email = form.querySelector("#email");
     const message = form.querySelector("#message");
+    const nameErr = form.querySelector("#name-error");
     const emailErr = form.querySelector("#email-error");
     const msgErr = form.querySelector("#message-error");
     const status = form.querySelector("#form-status");
+    const submit = form.querySelector('button[type="submit"]');
   
     const isValidEmail = (v) =>
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
+    const isValidName = (v) => String(v || "").trim().length >= 2;
     const isValidMessage = (v) => String(v || "").trim().length >= 10;
   
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
   
+      const okName = isValidName(name.value);
       const okEmail = isValidEmail(email.value);
       const okMsg = isValidMessage(message.value);
   
+      if (nameErr) nameErr.textContent = okName ? "" : "Please enter your name.";
       if (emailErr) emailErr.textContent = okEmail ? "" : "Please enter a valid email.";
       if (msgErr) msgErr.textContent = okMsg ? "" : "Message must be at least 10 characters.";
       if (status) status.textContent = "";
   
-      if (okEmail && okMsg) {
-        if (status) status.textContent = "Message ready to send ✅";
+      if (!okName || !okEmail || !okMsg) return;
+
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = "Sending...";
+      }
+      if (status) status.textContent = "Sending message...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+
+        if (!response.ok) throw new Error("Message could not be sent.");
+
+        if (status) {
+          status.textContent = "Message sent. Thank you!";
+        }
         form.reset();
+      } catch (_) {
+        if (status) {
+          status.textContent = "The message could not be sent. Please email me directly.";
+        }
+      } finally {
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = "Send";
+        }
       }
     });
   }

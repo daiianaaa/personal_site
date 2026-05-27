@@ -659,6 +659,50 @@ body{
   flex-wrap: wrap;
 }
 
+/* Learning */
+.learning-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.learning-card{
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.035);
+  padding: 18px;
+  box-shadow: 0 12px 34px rgba(0,0,0,.22);
+}
+
+.learning-card--featured{
+  grid-column: 1 / -1;
+  background:
+    radial-gradient(620px 260px at 15% 20%, rgba(79,209,255,.12), transparent 62%),
+    radial-gradient(620px 260px at 100% 0%, rgba(255,184,107,.10), transparent 62%),
+    rgba(255,255,255,.045);
+}
+
+.learning-kicker{
+  margin: 0 0 8px;
+  color: var(--blue);
+  font-size: .78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+[data-theme="light"] .learning-card{
+  background: rgba(255,255,255,.58);
+  box-shadow: 0 12px 34px rgba(100,70,140,.10);
+}
+
+[data-theme="light"] .learning-card--featured{
+  background:
+    radial-gradient(620px 260px at 15% 20%, rgba(61,143,199,.10), transparent 62%),
+    radial-gradient(620px 260px at 100% 0%, rgba(212,147,90,.10), transparent 62%),
+    rgba(255,255,255,.68);
+}
+
 /* Experience (work) — rows for jobs */
 .work-list{
   display: flex;
@@ -727,6 +771,18 @@ body{
   border: 1px solid rgba(255,255,255,.12);
   background: rgba(0,0,0,.25);
   color: inherit;
+}
+.btn:disabled{
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+.honeypot{
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 .error{ min-height: 18px; color: #ffb4b4; }
 
@@ -1313,6 +1369,8 @@ body{
   .skills-track--mobile .dot{ opacity: .7; }
   .memoji-card{ width: min(8rem, 36vw); }
   .stats{ grid-template-columns: 1fr; }
+  .learning-grid{ grid-template-columns: 1fr; }
+  .learning-card--featured{ grid-column: auto; }
   .section{ padding: var(--fluid-section) 0; }
 }
 
